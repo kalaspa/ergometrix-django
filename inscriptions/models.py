@@ -33,7 +33,7 @@ class Category (models.Model):
 class Boat (models.Model):
 
 	name = models.CharField(max_length=50)
-	record = models.IntegerField()
+	record = models.IntegerField(null=False)
 
 	payment = models.BooleanField()
 	deleted = models.BooleanField()
