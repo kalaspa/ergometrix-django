@@ -9,21 +9,30 @@ class Rower (models.Model):
 	birthdate = models.DateField()
 	license = models.CharField(max_length=50)
 
+	def __str__(self):
+		return "{0} {1} né(e) le {2}, no de license {3}".format(self.lastname , self.firstname , self.birthdate , self.license)
+
 class Leader (models.Model):
 
 	email = models.EmailField()
 	phone = models.IntegerField()
 	club = models.CharField(max_length=50)
+	rower = models.ForeignKey(Rower)
+
+	def __str__(self):
+		return "{0}, {1} {2} du club {3}".format(self.rower , self.email , self.phone , self.club)
 
 class Category (models.Model):
 
 	code = models.CharField(max_length=50)
 	description = models.CharField(max_length=100)
 
+	def __str__(self):
+		return "{0} {1}".format(self.code , self.description)
+
 class Boat (models.Model):
 
 	name = models.CharField(max_length=50)
-	category = models.CharField(max_length=50)
 	record = models.IntegerField()
 
 	payment = models.BooleanField()
@@ -32,4 +41,8 @@ class Boat (models.Model):
 	created = models.DateField()
 
 	rower = models.ManyToManyField(Rower)
-	leader = models.ManyToManyField(Leader)
+	leader = models.ForeignKey(Leader)
+	category = models.ForeignKey(Category)
+
+	def __str__(self):
+		return "{0} {1} ".format(self.name , self.category)
